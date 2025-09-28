@@ -58,4 +58,17 @@ class CarSetTest {
         assertEquals(0, carSet.size());
     }
 
+    @Test
+    public void listContainsCar(){
+        Car newCar = new Car(1, "Honda");
+        carSet.add(newCar);
+        assertTrue(carSet.contains(newCar));
+    }
+
+    @Test
+    public void listNotContainsCar(){
+        Car newCar = new Car(1, "Honda");
+        assertFalse(carSet.contains(newCar));
+    }
+
 }

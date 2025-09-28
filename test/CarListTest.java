@@ -24,7 +24,7 @@ class CarListTest {
 
     @Test
     public void whenGetElementBeyondBoundsThenException(){
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+        assertThrows(IndexOutOfBoundsException.class, () -> {
             carList.get(110);
         });
     }
@@ -87,5 +87,32 @@ class CarListTest {
         carList.add(newCar, carList.size());
         assertEquals(newCar, carList.get(carList.size() - 1));
         assertEquals(101, carList.size());
+    }
+
+    @Test
+    public void listContainsCarAtTheBeginning(){
+        Car newCar = new Car(1, "Honda");
+        carList.add(newCar, 0);
+        assertTrue(carList.contains(newCar));
+    }
+
+    @Test
+    public void listContainsCarAtTheMiddle(){
+        Car newCar = new Car(1, "Honda");
+        carList.add(newCar, 5);
+        assertTrue(carList.contains(newCar));
+    }
+
+    @Test
+    public void listContainsCarAtTheEnd(){
+        Car newCar = new Car(1, "Honda");
+        carList.add(newCar, carList.size());
+        assertTrue(carList.contains(newCar));
+    }
+
+    @Test
+    public void listNotContainsCar(){
+        Car newCar = new Car(1, "Honda");
+        assertFalse(carList.contains(newCar));
     }
 }
