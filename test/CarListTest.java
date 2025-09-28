@@ -26,7 +26,7 @@ class CarListTest {
     public void whenGetElementBeyondBoundsThenException(){
         assertThrows(IndexOutOfBoundsException.class, () -> {
             carList.get(110);
-        });
+        })
     }
 
     @Test
@@ -67,8 +67,7 @@ class CarListTest {
     @Test
     public void insertIntoMiddle(){
         Car newCar = new Car(1, "Honda");
-        carList.add(newCar, 5);
-
+        assertTrue(carList.add(newCar, 5));
         assertEquals(newCar, carList.get(5));
         assertEquals(101, carList.size());
     }
@@ -76,7 +75,7 @@ class CarListTest {
     @Test
     public void insertIntoBeginning(){
         Car newCar = new Car(1, "Honda");
-        carList.add(newCar, 0);
+        assertTrue(carList.add(newCar, 0));
         assertEquals(newCar, carList.get(0));
         assertEquals(101, carList.size());
     }
@@ -84,7 +83,7 @@ class CarListTest {
     @Test
     public void insertAtTheEnd(){
         Car newCar = new Car(1, "Honda");
-        carList.add(newCar, carList.size());
+        assertTrue(carList.add(newCar, carList.size()));
         assertEquals(newCar, carList.get(carList.size() - 1));
         assertEquals(101, carList.size());
     }
@@ -92,21 +91,21 @@ class CarListTest {
     @Test
     public void listContainsCarAtTheBeginning(){
         Car newCar = new Car(1, "Honda");
-        carList.add(newCar, 0);
+        assertTrue(carList.add(newCar, 0));
         assertTrue(carList.contains(newCar));
     }
 
     @Test
     public void listContainsCarAtTheMiddle(){
         Car newCar = new Car(1, "Honda");
-        carList.add(newCar, 5);
+        assertTrue(carList.add(newCar, 5));
         assertTrue(carList.contains(newCar));
     }
 
     @Test
     public void listContainsCarAtTheEnd(){
         Car newCar = new Car(1, "Honda");
-        carList.add(newCar, carList.size());
+        assertTrue(carList.add(newCar, carList.size()));
         assertTrue(carList.contains(newCar));
     }
 
