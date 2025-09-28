@@ -9,7 +9,7 @@ class CarListTest {
 
     @BeforeEach
     void setUp() {
-        carList = new CarArrayList();
+        carList = new CarLinkedList();
 
         for (int i = 0; i < 100; i++){
             Car car = new Car(i, "Brand" + i);
@@ -113,5 +113,15 @@ class CarListTest {
     public void listNotContainsCar(){
         Car newCar = new Car(1, "Honda");
         assertFalse(carList.contains(newCar));
+    }
+
+    @Test
+    public void testIterator(){
+        int index = 0;
+        for (Car car: carList){
+            index++;
+        }
+
+        assertEquals(100, index);
     }
 }

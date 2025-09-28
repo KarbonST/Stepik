@@ -71,4 +71,14 @@ class CarSetTest {
         assertFalse(carSet.contains(newCar));
     }
 
+    @Test
+    public void testIterator(){
+        int index = 0;
+        for (Car car: carSet){
+            index++;
+        }
+
+        assertEquals(100, index);
+    }
+
 }
