@@ -1,3 +1,6 @@
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 public class CarLinkedList implements CarList{
 
     private Node first;
@@ -119,6 +122,29 @@ public class CarLinkedList implements CarList{
         }
 
         return node;
+    }
+
+    @Override
+    public Iterator<Car> iterator() {
+        return new Iterator<Car>() {
+            Node currentNode = first;
+
+            @Override
+            public boolean hasNext() {
+                return currentNode != null;
+            }
+
+            @Override
+            public Car next() {
+                if (!hasNext()){
+                    throw new NoSuchElementException();
+                }
+
+                Car car = currentNode.value;
+                currentNode = currentNode.next;
+                return car;
+            }
+        };
     }
 
     private static class Node {

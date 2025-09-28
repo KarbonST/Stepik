@@ -1,3 +1,6 @@
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 public class CarHashSet implements CarSet{
 
     private static final int INIT_SIZE_OF_ARRAY = 16;
@@ -106,8 +109,45 @@ public class CarHashSet implements CarSet{
         return Math.abs(car.hashCode() % arrayLength);
     }
 
+    @Override
+    public Iterator<Car> iterator() {
+        return new Iterator<Car>() {
+            int index = 0;
+            int bucket = 0;
+            Entry currentEntry;
+
+            @Override
+            public boolean hasNext() {
+                return index < size;
+            }
+
+            @Override
+            public Car next() {
+                while (array[bucket] == null){
+                    bucket++;
+                }
+
+                if (currentEntry == null){
+                    currentEntry = array[bucket];
+                }
+
+                Car car = currentEntry.value;
+                index++;
+
+                currentEntry = currentEntry.next;
+                if (currentEntry == null){
+                    bucket++;
+                }
+
+                return car;
+
+            }
+
+        };
+    }
+
     private static class Entry {
-        private Car value;
+        private final Car value;
         private Entry next;
 
         public Entry(Car value, Entry next) {

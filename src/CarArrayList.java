@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class CarArrayList implements CarList{
 
@@ -88,5 +90,25 @@ public class CarArrayList implements CarList{
         if (size >= carsList.length){
             carsList = Arrays.copyOf(carsList, carsList.length * 2);
         }
+    }
+
+    @Override
+    public Iterator<Car> iterator() {
+        return new Iterator<Car>() {
+            int index = 0;
+
+            @Override
+            public boolean hasNext() {
+                return index < size;
+            }
+
+            @Override
+            public Car next() {
+                if (!hasNext()){
+                    throw new NoSuchElementException();
+                }
+                return carsList[index++];
+            }
+        };
     }
 }
