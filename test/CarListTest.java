@@ -26,7 +26,7 @@ class CarListTest {
     public void whenGetElementBeyondBoundsThenException(){
         assertThrows(IndexOutOfBoundsException.class, () -> {
             carList.get(110);
-        })
+        });
     }
 
     @Test
