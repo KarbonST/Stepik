@@ -1,6 +1,6 @@
-public interface CarSet {
-    boolean add (Car car);
-    boolean remove(Car car);
-    int size();
-    void clear();
+public interface CarSet extends CarCollection {
+//    boolean add (Car car);
+//    boolean remove(Car car);
+//    int size();
+//    void clear();
 }
