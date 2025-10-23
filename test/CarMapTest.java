@@ -10,7 +10,8 @@ class CarMapTest {
 
     @BeforeEach
     void setUp() {
-        // TODO maps initialization
+        carMap = new CarHashMap();
+        littleCarMap = new CarHashMap();
 
         for (int i = 0; i < 100; i++){
             Car car = new Car(i, "Brand" + i);

@@ -149,7 +149,6 @@ public class CarHashSet implements CarSet{
     private static class Entry {
         private final Car value;
         private Entry next;
-
         public Entry(Car value, Entry next) {
             this.value = value;
             this.next = next;
