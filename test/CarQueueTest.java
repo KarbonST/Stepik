@@ -9,7 +9,7 @@ class CarQueueTest {
 
     @BeforeEach
     void setUp() {
-        // TODO init
+        queue = new CarLinkedList();
         for (int i = 0; i < 10; i++){
             queue.add(new Car(i, "Brand" + i));
         }
@@ -30,7 +30,7 @@ class CarQueueTest {
     @Test
     void poll() {
         Car expectedCar = new Car(0, "Brand0");
-        assertEquals(expectedCar, queue.peek());
+        assertEquals(expectedCar, queue.poll());
         assertEquals(9, queue.size());
     }
 }
