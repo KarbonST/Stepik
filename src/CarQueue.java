@@ -1,4 +1,4 @@
-public interface CarQueue extends CarCollection{
-    Car peek();
-    Car poll();
+public interface CarQueue<T> extends CarCollection<T>{
+    T peek();
+    T poll();
 }

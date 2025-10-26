@@ -1,24 +1,24 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class CarLinkedList implements CarList, CarQueue{
+public class CarLinkedList<T> implements CarList<T>, CarQueue<T>{
 
-    private Node first;
-    private Node last;
+    private Node<T> first;
+    private Node<T> last;
     private int size = 0;
 
     @Override
-    public Car get(int index) {
+    public T get(int index) {
         return getNode(index).value;
     }
 
     @Override
-    public boolean add(Car car) {
+    public boolean add(T car) {
         if (size == 0) {
-            first = new Node(null, car, null);
+            first = new Node<>(null, car, null);
             last = first;
         } else {
-            Node newLastNode = new Node(last, car, null);
+            Node<T> newLastNode = new Node<>(last, car, null);
             last.next = newLastNode;
             last = newLastNode;
         }
@@ -27,19 +27,20 @@ public class CarLinkedList implements CarList, CarQueue{
     }
 
     @Override
-    public Car peek() {
-        return size > 0 ? get(0) : null;
+    public T peek() {
+        return (size == 0) ? null : first.value;
     }
 
     @Override
-    public Car poll() {
-        Car car = get(0);
+    public T poll() {
+        if (size == 0) return null;
+        T car = get(0);
         removeAt(0);
         return car;
     }
 
     @Override
-    public boolean add(Car car, int index) {
+    public boolean add(T car, int index) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
         }
@@ -48,9 +49,9 @@ public class CarLinkedList implements CarList, CarQueue{
             return add(car);
         }
 
-        Node nodeNext = getNode(index);
-        Node nodePrevious = nodeNext.previous;
-        Node newNode = new Node(nodePrevious, car, nodeNext);
+        Node<T> nodeNext = getNode(index);
+        Node<T> nodePrevious = nodeNext.previous;
+        Node<T> newNode = new Node<T>(nodePrevious, car, nodeNext);
         nodeNext.previous = newNode;
 
         if (nodePrevious != null){
@@ -64,7 +65,7 @@ public class CarLinkedList implements CarList, CarQueue{
     }
 
     @Override
-    public boolean remove(Car car) {
+    public boolean remove(T car) {
         int elementPos = findElementPosition(car);
         if (elementPos != -1){
             return removeAt(elementPos);
@@ -74,9 +75,9 @@ public class CarLinkedList implements CarList, CarQueue{
 
     @Override
     public boolean removeAt(int index) {
-        Node nodeToRemove = getNode(index);
-        Node previousNode = nodeToRemove.previous;
-        Node nextNode = nodeToRemove.next;
+        Node<T> nodeToRemove = getNode(index);
+        Node<T> previousNode = nodeToRemove.previous;
+        Node<T> nextNode = nodeToRemove.next;
 
         if (previousNode != null){
             previousNode.next = nextNode;
@@ -95,7 +96,7 @@ public class CarLinkedList implements CarList, CarQueue{
     }
 
     @Override
-    public boolean contains(Car car){
+    public boolean contains(T car){
         return findElementPosition(car) != -1;
     }
 
@@ -111,8 +112,8 @@ public class CarLinkedList implements CarList, CarQueue{
         size = 0;
     }
 
-    private int findElementPosition(Car car){
-        Node node = first;
+    private int findElementPosition(T car){
+        Node<T> node = first;
         for (int i = 0; i < size; i++){
             if (node.value.equals(car)){
                 return i;
@@ -123,12 +124,12 @@ public class CarLinkedList implements CarList, CarQueue{
         return -1;
     }
 
-    private Node getNode (int index){
+    private Node<T> getNode (int index){
         if (index < 0 || index >= size){
             throw new IndexOutOfBoundsException();
         }
 
-        Node node = first;
+        Node<T> node = first;
         for (int i = 0; i < index; i++){
             node = node.next;
         }
@@ -137,9 +138,9 @@ public class CarLinkedList implements CarList, CarQueue{
     }
 
     @Override
-    public Iterator<Car> iterator() {
-        return new Iterator<Car>() {
-            Node currentNode = first;
+    public Iterator<T> iterator() {
+        return new Iterator<>() {
+            Node<T> currentNode = first;
 
             @Override
             public boolean hasNext() {
@@ -147,24 +148,24 @@ public class CarLinkedList implements CarList, CarQueue{
             }
 
             @Override
-            public Car next() {
+            public T next() {
                 if (!hasNext()){
                     throw new NoSuchElementException();
                 }
 
-                Car car = currentNode.value;
+                T car = currentNode.value;
                 currentNode = currentNode.next;
                 return car;
             }
         };
     }
 
-    private static class Node {
-        private Node previous;
-        private Car value;
-        private Node next;
+    private static class Node<T> {
+        private Node<T> previous;
+        private T value;
+        private Node<T> next;
 
-        public Node(Node previous, Car value, Node next) {
+        public Node(Node<T> previous, T value, Node<T> next) {
             this.previous = previous;
             this.value = value;
             this.next = next;

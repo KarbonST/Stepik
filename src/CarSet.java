@@ -1,3 +1,3 @@
-public interface CarSet extends CarCollection {
+public interface CarSet<T> extends CarCollection<T> {
 
 }

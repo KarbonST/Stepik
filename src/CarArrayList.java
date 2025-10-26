@@ -2,19 +2,20 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class CarArrayList implements CarList{
+public class CarArrayList<T> implements CarList<T>{
 
-    private Car[] carsList = new Car[10];
+    private Object[] carsList = new Object[10];
     private int size = 0;
 
+    @SuppressWarnings("unchecked")
     @Override
-    public Car get(int index) {
+    public T get(int index) {
         checkIndexToRemoveAndGet(index);
-        return carsList[index];
+        return (T) carsList[index];
     }
 
     @Override
-    public boolean add(Car car) {
+    public boolean add(T car) {
         checkSize();
         carsList[size] = car;
         size++;
@@ -22,7 +23,7 @@ public class CarArrayList implements CarList{
     }
 
     @Override
-    public boolean add(Car car, int index){
+    public boolean add(T car, int index){
         if (index < 0 || index > size){
             throw new ArrayIndexOutOfBoundsException();
         }
@@ -37,7 +38,7 @@ public class CarArrayList implements CarList{
     }
 
     @Override
-    public boolean remove(Car car) {
+    public boolean remove(T car) {
         int elementPos = findElementPosition(car);
         if (elementPos != -1){
             return removeAt(elementPos);
@@ -56,7 +57,7 @@ public class CarArrayList implements CarList{
     }
 
     @Override
-    public boolean contains(Car car){
+    public boolean contains(T car){
         return findElementPosition(car) != -1;
     }
 
@@ -67,11 +68,11 @@ public class CarArrayList implements CarList{
 
     @Override
     public void clear() {
-        carsList = new Car[10];
+        carsList = new Object[10];
         size = 0;
     }
 
-    private int findElementPosition(Car car) {
+    private int findElementPosition(T car) {
         for (int i = 0; i < size; i++){
             if (carsList[i].equals(car)){
                 return i;
@@ -93,8 +94,8 @@ public class CarArrayList implements CarList{
     }
 
     @Override
-    public Iterator<Car> iterator() {
-        return new Iterator<Car>() {
+    public Iterator<T> iterator() {
+        return new Iterator<>() {
             int index = 0;
 
             @Override
@@ -102,12 +103,13 @@ public class CarArrayList implements CarList{
                 return index < size;
             }
 
+            @SuppressWarnings("unchecked")
             @Override
-            public Car next() {
+            public T next() {
                 if (!hasNext()){
                     throw new NoSuchElementException();
                 }
-                return carsList[index++];
+                return (T) carsList[index++];
             }
         };
     }

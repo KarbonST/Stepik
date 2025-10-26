@@ -5,13 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CarMapTest {
 
-    private CarMap carMap;
-    private CarMap littleCarMap;
+    private CarMap<CarOwner, Car> carMap;
+    private CarMap<CarOwner, Car> littleCarMap;
 
     @BeforeEach
     void setUp() {
-        carMap = new CarHashMap();
-        littleCarMap = new CarHashMap();
+        carMap = new CarHashMap<>();
+        littleCarMap = new CarHashMap<>();
 
         for (int i = 0; i < 100; i++){
             Car car = new Car(i, "Brand" + i);
